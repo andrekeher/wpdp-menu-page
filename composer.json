@@ -1,0 +1,17 @@
+{
+    "name": "andrekeher/wpdp-menu-page",
+    "description": "Helps in a new menu page creation in Wordpress.",
+    "homepage": "https://github.com/andrekeher/wpdp-menu-page",
+	"keywords": [
+        "wordpress",
+        "menu"
+    ],
+	"type": "plugin",
+    "license": "MIT",
+    "require": {},
+	"autoload": {
+		"psr-4": {
+			"AndreKeher\\WPDP\\" : "src/"
+		}
+	}
+}
