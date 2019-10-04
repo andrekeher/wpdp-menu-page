@@ -28,12 +28,12 @@ class MenuPage
         $this->position = $position;
     }
     
-    public function setFormFunction($formFunction)
+    public function setFormFunction(callable $formFunction)
     {
         $this->formFunction = $formFunction;
     }
 
-    public function setSaveFunction($saveFunction)
+    public function setSaveFunction(callable $saveFunction)
     {
         $this->saveFunction = $saveFunction;
     }
