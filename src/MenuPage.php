@@ -41,16 +41,26 @@ class MenuPage
     public function init()
     {
         add_action('admin_init', function () {
-            if ($_POST) {
+            if ($_POST && isset($_GET['page']) && $_GET['page'] === $this->menuSlug) {
                 call_user_func($this->saveFunction);
             }
         });
-        add_action('admin_menu', function () {
-            add_menu_page($this->pageTitle, $this->menuTitle, $this->capability, $this->menuSlug, function () {
-                if (isset($_GET['page']) && $_GET['page'] === $this->menuSlug) {
-                    call_user_func($this->formFunction);
-                }
-            }, $this->iconUrl, $this->position);
-        });
+        
+        if (is_subclass_of($this, 'AndreKeher\WPDP\MenuPage')) {
+            add_action('admin_menu', function () {
+                add_submenu_page($this->parentSlug, $this->pageTitle, $this->menuTitle, $this->capability, $this->menuSlug, array($this, 'form'), $this->iconUrl, $this->position);
+            });
+        } else {
+            add_action('admin_menu', function () {
+                add_menu_page($this->pageTitle, $this->menuTitle, $this->capability, $this->menuSlug, array($this, 'form'), $this->iconUrl, $this->position);
+            });
+        }
+    }
+    
+    public function form()
+    {
+        if (isset($_GET['page']) && $_GET['page'] === $this->menuSlug) {
+            call_user_func($this->formFunction);
+        }
     }
 }
