@@ -27,7 +27,7 @@ class MenuPage
         $this->iconUrl = $iconUrl;
         $this->position = $position;
     }
-    
+
     public function setFormFunction(callable $formFunction)
     {
         $this->formFunction = $formFunction;
@@ -37,7 +37,7 @@ class MenuPage
     {
         $this->saveFunction = $saveFunction;
     }
-    
+
     public function init()
     {
         add_action('admin_init', function () {
@@ -45,10 +45,10 @@ class MenuPage
                 call_user_func($this->saveFunction);
             }
         });
-        
+
         if (is_subclass_of($this, 'AndreKeher\WPDP\MenuPage')) {
             add_action('admin_menu', function () {
-                add_submenu_page($this->parentSlug, $this->pageTitle, $this->menuTitle, $this->capability, $this->menuSlug, array($this, 'form'), $this->iconUrl, $this->position);
+                add_submenu_page($this->parentSlug, $this->pageTitle, $this->menuTitle, $this->capability, $this->menuSlug, array($this, 'form'), $this->position);
             });
         } else {
             add_action('admin_menu', function () {
@@ -56,7 +56,7 @@ class MenuPage
             });
         }
     }
-    
+
     public function form()
     {
         if (isset($_GET['page']) && $_GET['page'] === $this->menuSlug) {
